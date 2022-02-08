@@ -1,5 +1,4 @@
-import react from "react";
-import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
+import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 
 export default function NavBar() {
     return (<>
@@ -9,14 +8,14 @@ export default function NavBar() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#home">Inicio</Nav.Link>
-                        <Nav.Link href="#link">Tienda</Nav.Link>
+                        <Nav.Link href="#inicio">Inicio</Nav.Link>
+                        <Nav.Link href="#tienda">Tienda</Nav.Link>
                         <NavDropdown title="Pedidos" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Amigurumis</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Chalecos</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Bordados</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Especiales</NavDropdown.Item>
+                            <NavDropdown.Item href="#pedidos/amigurumis">Amigurumis</NavDropdown.Item>
+                            <NavDropdown.Item href="#pedidos/chalecos">Chalecos</NavDropdown.Item>
+                            <NavDropdown.Item href="#pedidos/bordados">Bordados</NavDropdown.Item>
+                            <NavDropdown.Divider/>
+                            <NavDropdown.Item href="#pedidos/especiales">Especiales</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

@@ -1,11 +1,12 @@
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import CartWidget from "./CartWidget";
 
 export default function NavBar() {
     return (<>
-        <Navbar bg="light" expand="lg">
+        <Navbar collapseOnSelect bg="light" expand="lg">
             <Container>
                 <Navbar.Brand href="#home">Oi Filoi</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="#inicio">Inicio</Nav.Link>
@@ -19,6 +20,9 @@ export default function NavBar() {
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
+                <Nav className="me-auto">
+                    <CartWidget/>
+                </Nav>
             </Container>
         </Navbar>
     </>);

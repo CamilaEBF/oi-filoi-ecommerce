@@ -6,7 +6,6 @@ export default function NavBar() {
         <Navbar collapseOnSelect bg="light" expand="lg">
             <Container>
                 <Navbar.Brand href="#home">Oi Filoi</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="#inicio">Inicio</Nav.Link>
@@ -23,6 +22,7 @@ export default function NavBar() {
                 <Nav className="me-auto">
                     <CartWidget/>
                 </Nav>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             </Container>
         </Navbar>
     </>);

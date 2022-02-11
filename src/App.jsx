@@ -1,14 +1,13 @@
 import './App.scss';
-import NavBar from './components/NavBar';
+import NavBar from './components/navigation/NavBar';
+import CartWidget from "./components/main/ItemListContainer";
 
 function App() {
-  return (<>
-      <NavBar/>
-      <div>
-        Sitio web en construcción
-      </div>
-      </>
-  );
+    return (<>
+            <NavBar/>
+            <CartWidget greeting="Sitio web en construcción"/>
+        </>
+    );
 }
 
 export default App;

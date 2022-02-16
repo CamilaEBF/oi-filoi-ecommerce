@@ -4,9 +4,9 @@ import ItemListContainer from "./components/main/ItemListContainer";
 
 function App() {
   return (<>
-        <NavBar/>
-        <ItemListContainer greeting="Sitio web en construcción"/>
-      </>
+    <NavBar />
+    <ItemListContainer greeting="Sitio web en construcción" />
+  </>
   );
 }
 

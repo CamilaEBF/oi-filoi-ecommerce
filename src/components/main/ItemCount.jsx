@@ -13,7 +13,7 @@ export default function ItemCount(props) {
     let fNoSubstract = count < 2 ? true : false;
     setFlagNoStock(fNoStock);
     setFlagNoSubstract(fNoSubstract);
-  }, [count]);
+  }, [count, props.stock]);
 
   const handleOnAddition = () => {
     setCount(parseInt(count, 10) + 1);

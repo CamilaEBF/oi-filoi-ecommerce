@@ -5,14 +5,14 @@ import {FaMinusSquare, FaPlusSquare} from "react-icons/fa";
 export default function ItemCount(props) {
   const [count, setCount] = useState(props.initial);
   const [flagNoStock, setFlagNoStock] = useState(false);
-  const [flagNoSubstract, setFlagNoSubstract] = useState(true);
+  const [flagNoSubtract, setFlagNoSubtract] = useState(true);
 
 
   useEffect(() => {
-    let fNoStock = props.stock < count + 1 ? true : false;
-    let fNoSubstract = count < 2 ? true : false;
+    let fNoStock = props.stock < count + 1;
+    let fNoSubtract = count < 2;
     setFlagNoStock(fNoStock);
-    setFlagNoSubstract(fNoSubstract);
+    setFlagNoSubtract(fNoSubtract);
   }, [count, props.stock]);
 
   const handleOnAddition = () => {
@@ -25,7 +25,7 @@ export default function ItemCount(props) {
 
   return (<>
     <Row sm={3} className="g-3">
-      {!flagNoSubstract &&
+      {!flagNoSubtract &&
       <Col>
         <Button onClick={handleOnSubtract}>
           <FaMinusSquare/>

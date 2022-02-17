@@ -23,10 +23,6 @@ export default function ItemCount(props) {
     setCount(count - 1);
   };
 
-  const handleOnAdd = () => {
-    console.log(`Se agregó al carrito ${count} del producto.`)
-  };
-
   return (<>
     <Row sm={3} className="g-3">
       {!flagNoSubstract &&
@@ -48,7 +44,7 @@ export default function ItemCount(props) {
       }
     </Row>
     <Row>
-      <Button className="g-3" onClick={handleOnAdd}>
+      <Button className="g-3" onClick={() => props.onAdd(count)}>
         <span> Agregar al carrito </span>
       </Button>
     </Row>

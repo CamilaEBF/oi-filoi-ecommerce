@@ -24,7 +24,7 @@ export default function ItemCount(props) {
   };
 
   return (<>
-    <Row sm={3} className="g-3">
+    <Row sm={3} className="justify-content-center align-content-center mt-3">
       {!flagNoSubtract &&
       <Col>
         <Button onClick={handleOnSubtract}>

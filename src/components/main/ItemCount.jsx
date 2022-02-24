@@ -1,6 +1,6 @@
-import {Button, Col, Row} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
-import {FaMinusSquare, FaPlusSquare} from "react-icons/fa";
+import { Button, Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { FaMinusSquare, FaPlusSquare } from "react-icons/fa";
 
 export default function ItemCount(props) {
   const [count, setCount] = useState(props.initial);
@@ -26,21 +26,21 @@ export default function ItemCount(props) {
   return (<>
     <Row sm={3} className="justify-content-center align-content-center mt-3">
       {!flagNoSubtract &&
-      <Col>
-        <Button onClick={handleOnSubtract}>
-          <FaMinusSquare/>
-        </Button>
-      </Col>
+        <Col>
+          <Button onClick={handleOnSubtract}>
+            <FaMinusSquare />
+          </Button>
+        </Col>
       }
       <Col>
         <span>{count}</span>
       </Col>
       {!flagNoStock &&
-      <Col>
-        <Button onClick={handleOnAddition}>
-          <FaPlusSquare/>
-        </Button>
-      </Col>
+        <Col>
+          <Button onClick={handleOnAddition}>
+            <FaPlusSquare />
+          </Button>
+        </Col>
       }
     </Row>
     <Row>

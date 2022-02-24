@@ -1,5 +1,4 @@
-import { Button } from "bootstrap";
-import { Card, Col } from "react-bootstrap";
+import { Button, Card, Col } from "react-bootstrap";
 
 
 export default function Item(props) {
@@ -8,10 +7,10 @@ export default function Item(props) {
             <Card.Img variant="top" src={props.pictureUrl} />
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
+                <Button variant="primary" size="sm" block>
+                    Ver más ...
+                </Button>
             </Card.Body>
-            <Card.Footer>
-                Ver más ...
-            </Card.Footer>
         </Card>
     </Col>);
 }

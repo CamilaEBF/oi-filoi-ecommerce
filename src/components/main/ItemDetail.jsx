@@ -1,5 +1,4 @@
-import { Button, Card } from "react-bootstrap";
-import { FaShoppingCart } from "react-icons/fa";
+import { Card } from "react-bootstrap";
 
 export default function ItemDetail({ item }) {
     return (<Card border="info" style={{ width: '18rem' }} className="p-1 m-auto">

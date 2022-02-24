@@ -24,6 +24,8 @@ export default function ItemDetailContainer() {
     });
 
     return (<Container>
-        <ItemDetailContainer></ItemDetailContainer>
+        <Row className="justify-content-center">
+            <ItemDetail item={item}></ItemDetail>
+        </Row>
     </Container>);
 }

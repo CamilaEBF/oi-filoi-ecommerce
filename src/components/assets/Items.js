@@ -42,7 +42,7 @@ export const ItemsArray = [
         pictureUrl: 'img/chaleco_1.jpg'
     },
     {
-        id: '06',
+        id: '07',
         title: 'Chaleco Tramas',
         description: 'Chaleco entramado talle unico.',
         price: 2700,

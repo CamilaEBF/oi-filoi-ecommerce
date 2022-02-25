@@ -23,7 +23,6 @@ export default function ItemDetailContainer() {
             console.log('Hubo un error durante la obtención de items.')
         }).finally(() => {
             setLoading(false);
-            console.log(item);
         })
     }, [itemId, getItem]);
 

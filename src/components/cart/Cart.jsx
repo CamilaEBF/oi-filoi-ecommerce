@@ -1,12 +1,9 @@
-import {Button} from "react-bootstrap";
-import {FaShoppingCart} from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 export default function Cart() {
-  return (
-      <>
-      
-      <h1><FaShoppingCart/> Sección del carrito en construcción <FaShoppingCart/></h1>
-      
-      </>
-  );
+    return (
+        <>
+            <h1><FaShoppingCart /> Sección del carrito en construcción <FaShoppingCart /></h1>
+        </>
+    );
 }

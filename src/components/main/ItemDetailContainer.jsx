@@ -24,7 +24,7 @@ export default function ItemDetailContainer() {
         }).finally(() => {
             setLoading(false);
         })
-    }, [itemId, getItem]);
+    }, [itemId]);
 
     const onAdd = (count) => {
         console.log(`Se agregó al carrito ${count} del producto.`)

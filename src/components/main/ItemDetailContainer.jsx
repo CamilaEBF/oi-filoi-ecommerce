@@ -2,7 +2,6 @@ import { Container, Row, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
 import { ItemsArray } from "../../assets/Items";
-import ItemCount from "./ItemCount";
 import { useParams } from "react-router-dom";
 
 export default function ItemDetailContainer() {
@@ -26,9 +25,6 @@ export default function ItemDetailContainer() {
         })
     }, [itemId]);
 
-    const onAdd = (count) => {
-        console.log(`Se agregó al carrito ${count} del producto.`)
-    };
 
     return (<Container>
         {loading ?
@@ -39,9 +35,6 @@ export default function ItemDetailContainer() {
             (<>
                 <Row className="justify-content-center">
                     <ItemDetail item={item}></ItemDetail>
-                </Row>
-                <Row className="m-5 bg-secondary justify-content-center border-3 border-secondary">
-                    <ItemCount stock="5" initial="1" onAdd={onAdd} />
                 </Row>
             </>)
         }

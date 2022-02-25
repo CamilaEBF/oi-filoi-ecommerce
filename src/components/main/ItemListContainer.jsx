@@ -28,7 +28,7 @@ export default function ItemListContainer(props) {
     }).finally(() => {
       setLoading(false);
     })
-  }, [categoryId]);
+  }, [categoryId,getItems]);
 
   return (<Container>
     <Row className="">

@@ -13,7 +13,7 @@ export default function Item(props) {
             <Card.Img variant="top" src={props.pictureUrl} />
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
-                <Button onClick={routeChange} variant="primary" size="sm" block>
+                <Button onClick={routeChange} variant="primary" size="sm" >
                     Ver más ...
                 </Button>
             </Card.Body>

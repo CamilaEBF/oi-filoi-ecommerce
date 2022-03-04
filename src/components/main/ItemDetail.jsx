@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Card, Row } from "react-bootstrap";
 import ItemCount from "./ItemCount";
 import { useNavigate } from "react-router-dom";
+import CartContext from "../../context/CartContext";
 
 export default function ItemDetail({ item }) {
     let navigate = useNavigate();
     const [count, setCount] = useState(0);
+    const cartContext = useContext(CartContext);
 
     const onAdd = (count) => {
-        console.log(`Se agregó al carrito ${count} del producto.`);
+        cartContext.addToCart({item, quantity: count});
         setCount(count);
     };
 

@@ -10,7 +10,7 @@ export default function ItemListContainer(props) {
   const { categoryId } = useParams();
 
   useEffect(() => {
-    getItems.then((res) => {
+    getItems().then((res) => {
       setItems(res.filter((item) =>  {
         if(categoryId) {
         return item.category === categoryId;

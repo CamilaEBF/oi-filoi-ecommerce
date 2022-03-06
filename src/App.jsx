@@ -9,18 +9,19 @@ import Cart from "./components/cart/Cart";
 import CacheProvider from "./context/CacheProvider";
 
 function App() {
-  return (<BrowserRouter>
+  return (
     <CacheProvider>
-      <NavBar />
-      <Routes>
-        <Route exact path="/" element={<ItemListContainer />} />
-        <Route exact path="/category/:categoryId" element={<ItemListContainer />} />
-        <Route path="/item/:itemId" element={<ItemDetailContainer />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route element={<NotFound />} />
-      </Routes>
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route exact path="/" element={<ItemListContainer />} />
+          <Route exact path="/category/:categoryId" element={<ItemListContainer />} />
+          <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </CacheProvider>
-  </BrowserRouter>
   );
 }
 

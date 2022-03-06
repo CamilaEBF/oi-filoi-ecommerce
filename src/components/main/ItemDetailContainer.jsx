@@ -1,7 +1,7 @@
 import { Container, Row, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
-import { ItemsArray } from "../../assets/Items";
+import { getItem } from "../../assets/Items";
 import { useParams } from "react-router-dom";
 
 export default function ItemDetailContainer() {
@@ -9,15 +9,10 @@ export default function ItemDetailContainer() {
     const [loading, setLoading] = useState(true);
     const { itemId } = useParams();
 
-    const getItem = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(ItemsArray);
-        }, 2000);
-    });
 
     useEffect(() => {
-        getItem.then((res) => {
-            setItem(res.find((item) => item.id === itemId));
+        getItem(itemId).then((res) => {
+            setItem(res);
         }).catch((err) => {
             console.log('Hubo un error durante la obtención de items.')
         }).finally(() => {

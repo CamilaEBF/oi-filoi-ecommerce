@@ -1,21 +1,24 @@
 import React from "react";
+import { Image } from "react-bootstrap";
 import "./CartItem.scss";
+import { Button } from "react-bootstrap";
 
 export default function CartItem({ product, removeFromCart }) {
   return (
     <div className="cart-item">
       <div className="cart-item-img">
-        <img src={product.item.image} alt={product.item.name} />
+        <Image src={product.item.pictureUrl} alt={product.item.name} thumbnail />
       </div>
       <div className="cart-item-info">
-        <h3>{product.item.name}</h3>
-        <p>{product.item.description}</p>
+        <h4>{product.item.title}</h4>
         <p>${product.item.price}</p>
-        <button onClick={() => removeFromCart(product)}>Eliminar</button>
       </div>
-      <div>
+      <div className="cart-item-quantity">
         <p>Cantidad: {product.quantity}</p>
-        <p>Subtotal: {product.quantity * product.item.price}</p>
+        <p>Subtotal: ${product.quantity * product.item.price}</p>
+      </div>
+      <div className="cart-item-actions">
+        <Button variant="secondary" onClick={() => removeFromCart(product)}>Eliminar</Button>
       </div>
     </div>
   );

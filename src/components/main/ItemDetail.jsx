@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
-import { Button, Card, Row } from "react-bootstrap";
+import { Button, Image, Row, Col } from "react-bootstrap";
 import ItemCount from "./ItemCount";
 import { useNavigate } from "react-router-dom";
 import CartContext from "../../context/CartContext";
+import "./ItemDetail.scss";
 
 export default function ItemDetail({ item }) {
     let navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function ItemDetail({ item }) {
     const cartContext = useContext(CartContext);
 
     const onAdd = (count) => {
-        cartContext.addToCart({item, quantity: count});
+        cartContext.addToCart({ item, quantity: count });
         setCount(count);
     };
 
@@ -19,27 +20,24 @@ export default function ItemDetail({ item }) {
         console.log("Se ha cambiado de ruta.");
     }
 
-    return (<>
-        <Card border="info" style={{ width: '18rem' }} className="p-1 m-auto">
-            <Card.Img variant="top" src={item.pictureUrl} />
-            <Card.ImgOverlay>
-                <Card.Title>{item.title}</Card.Title>
-            </Card.ImgOverlay>
-            <Card.Body>
-                <Card.Text>{item.description}</Card.Text>
-            </Card.Body>
-            <Card.Footer>
-                Precio: {item.price}
-            </Card.Footer>
-        </Card>
-        <Row className="m-5 justify-content-center">
-            <ItemCount stock={item.stock} initial="1" onAdd={onAdd} />
-        </Row>
-        {count > 0 &&
-            <Button className="m-5" variant="secondary" onClick={routeChange}>
-                Terminar compra
-            </Button>
-        }
-    </>
+    return (<Row className="detail-container">
+        <Col md={4}>
+            <Image src={item.pictureUrl} fluid className='card-image-container' />
+        </Col>
+        <Col md={8} className="item-details">
+            <div className="item-title">{item.title}</div>
+            <p>{item.description}</p>
+            <p className="item-price">$ {item.price}</p>
+            <Row className="m-2 justify-content-center">
+                <ItemCount stock={item.stock} initial="1" onAdd={onAdd} />
+                {count > 0 &&
+                    <Button className="m-2" variant="secondary" onClick={routeChange}>
+                        Ver carrito
+                    </Button>
+                }
+            </Row>
+
+        </Col>
+    </Row>
     );
 }

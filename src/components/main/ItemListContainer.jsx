@@ -1,21 +1,16 @@
 import { Col, Container, Row } from "react-bootstrap";
 import ItemList from "./ItemList";
 import { useEffect, useState } from "react";
-import { ItemsArray } from "../../assets/Items";
+import { getItems } from "../../assets/Items";
 import { useParams } from "react-router-dom";
 
 export default function ItemListContainer(props) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const getItems = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(ItemsArray);
-    }, 2000);
-  });
   const { categoryId } = useParams();
 
   useEffect(() => {
-    getItems.then((res) => {
+    getItems().then((res) => {
       setItems(res.filter((item) =>  {
         if(categoryId) {
         return item.category === categoryId;

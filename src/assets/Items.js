@@ -56,3 +56,20 @@ export const ItemsArray = [
         pictureUrl: '/img/chaleco_2.jpg'
     }
 ];
+
+export const getItem = (id) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const item = ItemsArray.find(item => item.id === id);
+            resolve(item);
+        }, 2000);
+    });
+};
+
+export const getItems = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(ItemsArray);
+        }, 2000);
+      });
+};

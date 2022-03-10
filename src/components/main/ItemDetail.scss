@@ -1,0 +1,33 @@
+.card-image-container {
+  position: relative;
+  border-radius: 5px;
+}
+
+.detail-container {
+  margin-top: 50px;
+  padding: 10px;
+    box-shadow: 0px 0px 10px 0px rgb(123, 128, 127);
+    border-radius: 5px;
+    .item-details{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .item-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        padding-top: 5px;
+    }
+    .item-price {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        padding-top: 5px;
+    }
+        .item-description{
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+}

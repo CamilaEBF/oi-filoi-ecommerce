@@ -1,8 +1,9 @@
 import { Col, Container, Row } from "react-bootstrap";
 import ItemList from "./ItemList";
 import { useEffect, useState } from "react";
-import { getItems } from "../../assets/Items";
 import { useParams } from "react-router-dom";
+import { db } from "../../utils/firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 export default function ItemListContainer(props) {
   const [items, setItems] = useState([]);
@@ -10,20 +11,23 @@ export default function ItemListContainer(props) {
   const { categoryId } = useParams();
 
   useEffect(() => {
-    getItems().then((res) => {
-      setItems(res.filter((item) =>  {
-        if(categoryId) {
-        return item.category === categoryId;
+    const getData = async () => {
+      if(categoryId) {
+        const q = query(collection(db, "items"), where("category", "==", categoryId));
+        const res = await getDocs(q);
+        const items = res.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        setItems(items);
         } else {
-          return item;
+          const query = collection(db,"items");
+          const res = await getDocs(query);
+          const items = res.docs.map(doc => ({id: doc.id, ...doc.data()}));
+          setItems(items);
         }
-        }));
-    }).catch((err) => {
-      console.log('Hubo un error durante la obtención de items.')
-    }).finally(() => {
-      setLoading(false);
-    })
-  }, [categoryId]);
+        
+        console.log(items);
+      };
+      getData().finally(() => setLoading(false));
+  }, [items, categoryId]);
 
   return (<Container>
     <Row className="">

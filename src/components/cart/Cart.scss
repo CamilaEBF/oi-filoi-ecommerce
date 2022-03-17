@@ -38,3 +38,14 @@
 .cart-item-quantity {
   width: 150px;
 }
+
+.cart-order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #f5f5f5;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}

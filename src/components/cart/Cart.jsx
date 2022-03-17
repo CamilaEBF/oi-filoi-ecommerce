@@ -4,6 +4,7 @@ import "./Cart.scss";
 import CartContext from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import BuyerForm from "./BuyerForm";
 
 export default function Cart() {
     const cartContext = useContext(CartContext);
@@ -47,10 +48,19 @@ export default function Cart() {
     </div>
     );
 
+    const onSubmitBuyerInfo = (e)=>{
+        e.preventDefault();
+        console.log(e);
 
-    return (
+    };
+
+
+    return (<>
         <div className="cart-container">
             {cart}
         </div>
-    );
+        <div className="cart-order">
+            <BuyerForm onSubmitOrder={onSubmitBuyerInfo} />
+        </div>
+    </>);
 }

@@ -4,6 +4,7 @@ import ItemDetail from "./ItemDetail";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase";
+import { getItem } from "../../assets/Items";
 
 export default function ItemDetailContainer() {
     const [item, setItem] = useState([]);
@@ -19,6 +20,16 @@ export default function ItemDetailContainer() {
         };
         getData().finally(() => setLoading(false));
     }, [itemId]); 
+
+    // useEffect(() => {
+    //     getItem(itemId).then((res) => {
+    //         setItem(res);
+    //     }).catch((err) => {
+    //         console.log('Hubo un error durante la obtención de items.')
+    //     }).finally(() => {
+    //         setLoading(false);
+    //     })
+    // }, [itemId]);
 
     return (<Container>
         {loading ?

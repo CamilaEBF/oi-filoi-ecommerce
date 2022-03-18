@@ -1,12 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CartItem from "./CartItem";
 import "./Cart.scss";
 import CartContext from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import BuyerForm from "./BuyerForm";
+import {db} from "../../utils/firebase";
+import { Timestamp, addDoc, collection, updateDoc, doc } from "firebase/firestore";
+
 
 export default function Cart() {
     const cartContext = useContext(CartContext);
+    const { orderId, orderIdSet } = useState(null);	
 
     const cartItems = cartContext.cart.map(product => (
         <CartItem
@@ -47,10 +52,70 @@ export default function Cart() {
     </div>
     );
 
+    const onSubmitBuyerInfo = async (e)=>{
+        e.preventDefault();
+        console.log(e);
+        let order = {
+            buyer: {
+                name: e.target.name.value,
+                email: e.target.email.value,
+                phone: e.target.phone.value
+            },
+            items: cartContext.cart.map(product => ({
+                id: product.item.id,
+                title: product.item.title,
+                quantity: product.quantity
+            })),
+            date: Timestamp.fromDate(new Date()),
+            total: cartContext.total
+        };
+        console.log(order);
+        const queryCollection = collection( db, "orders" );
+        try {
+            const docRef = await addDoc(queryCollection, order);
+            console.log('docref', docRef.id);
+            updateOrderElementsStock(order);
+            orderIdSet(docRef.id);
+        } catch(error) {
+            console.log('error',error);
+        }
+        
+    };
 
-    return (
+    const updateOrderElementsStock = (order)=>{
+        order.items.forEach(item => {
+            const queryDoc = doc( db, "products", order.items[0].id );
+            updateStock(queryDoc, {stock: item.stock - item.quantity});
+        });
+    };
+
+    const updateStock = async (queryDoc, data)=>{ 
+       await updateDoc(queryDoc, data);
+    };
+
+
+    return (<>
+    {orderId !== null ? 
+        (<>
         <div className="cart-container">
             {cart}
         </div>
-    );
+        <div className="cart-order">
+            <BuyerForm onSubmitOrder={onSubmitBuyerInfo} />
+        </div>
+        </>) : (
+            <div className="order-end">
+                <h2>Tu pedido ha sido realizado con éxito</h2>
+                <p>En breve recibirás un correo con los detalles de tu pedido</p>
+                <h2> Tu número de orden es: { orderId }</h2>
+                <Link to="/">
+                    <Button variant="secondary" className="button-back">
+                        Volver a la tienda
+                    </Button>
+                </Link>
+            </div>
+        )
+    }
+        
+    </>);
 }

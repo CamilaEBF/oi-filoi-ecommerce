@@ -11,40 +11,40 @@ export default function ItemListContainer(props) {
   const [loading, setLoading] = useState(true);
   const { categoryId } = useParams();
 
-  useEffect(() => {
-    const getData = async () => {
-      if(categoryId) {
-        const q = query(collection(db, "items"), where("category", "==", categoryId));
-        const res = await getDocs(q);
-        const items = res.docs.map(doc => ({id: doc.id, ...doc.data()}));
-        setItems(items);
-        } else {
-          const query = collection(db,"items");
-          const res = await getDocs(query);
-          const items = res.docs.map(doc => ({id: doc.id, ...doc.data()}));
-          setItems(items);
-        }
-
-        console.log(items);
-      };
-      getData().finally(() => setLoading(false));
-  }, [items, categoryId]);
-
   // useEffect(() => {
-  //   getItems().then((res) => {
-  //     setItems(res.filter((item) => {
-  //       if (categoryId) {
-  //         return item.category === categoryId;
+  //   const getData = async () => {
+  //     if(categoryId) {
+  //       const q = query(collection(db, "items"), where("category", "==", categoryId));
+  //       const res = await getDocs(q);
+  //       const items = res.docs.map(doc => ({id: doc.id, ...doc.data()}));
+  //       setItems(items);
   //       } else {
-  //         return item;
+  //         const query = collection(db,"items");
+  //         const res = await getDocs(query);
+  //         const items = res.docs.map(doc => ({id: doc.id, ...doc.data()}));
+  //         setItems(items);
   //       }
-  //     }));
-  //   }).catch((err) => {
-  //     console.log('Hubo un error durante la obtención de items.')
-  //   }).finally(() => {
-  //     setLoading(false);
-  //   })
-  // }, [categoryId]);
+
+  //       console.log(items);
+  //     };
+  //     getData().finally(() => setLoading(false));
+  // }, [items, categoryId]);
+
+  useEffect(() => {
+    getItems().then((res) => {
+      setItems(res.filter((item) => {
+        if (categoryId) {
+          return item.category === categoryId;
+        } else {
+          return item;
+        }
+      }));
+    }).catch((err) => {
+      console.log('Hubo un error durante la obtención de items.')
+    }).finally(() => {
+      setLoading(false);
+    })
+  }, [categoryId]);
 
   return (<Container>
     <Row className="">

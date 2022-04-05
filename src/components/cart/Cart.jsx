@@ -11,7 +11,7 @@ import { Timestamp, addDoc, collection, updateDoc, doc } from "firebase/firestor
 
 export default function Cart() {
     const cartContext = useContext(CartContext);
-    const { orderId, orderIdSet } = useState(null);	
+    const [orderId, setOrderId] = useState(null);	
 
     const cartItems = cartContext.cart.map(product => (
         <CartItem
@@ -75,7 +75,7 @@ export default function Cart() {
             const docRef = await addDoc(queryCollection, order);
             console.log('docref', docRef.id);
             updateOrderElementsStock(order);
-            orderIdSet(docRef.id);
+            setOrderId(docRef.id);
         } catch(error) {
             console.log('error',error);
         }
@@ -84,7 +84,7 @@ export default function Cart() {
 
     const updateOrderElementsStock = (order)=>{
         order.items.forEach(item => {
-            const queryDoc = doc( db, "products", order.items[0].id );
+            const queryDoc = doc( db, "items", order.items[0].id );
             updateStock(queryDoc, {stock: item.stock - item.quantity});
         });
     };
@@ -95,27 +95,29 @@ export default function Cart() {
 
 
     return (<>
-    {orderId !== null ? 
+    {orderId !== null? 
         (<>
         <div className="cart-container">
             {cart}
         </div>
-        <div className="cart-order">
-            <BuyerForm onSubmitOrder={onSubmitBuyerInfo} />
-        </div>
+        {cartContext.cart.length &&
+            (<div className="cart-order">
+                <BuyerForm onSubmitOrder={onSubmitBuyerInfo} />
+            </div>)
+        }
         </>) : (
-            <div className="order-end">
+            <div className="container p-5">
                 <h2>Tu pedido ha sido realizado con éxito</h2>
                 <p>En breve recibirás un correo con los detalles de tu pedido</p>
                 <h2> Tu número de orden es: { orderId }</h2>
                 <Link to="/">
+                    {/* todo limpiar valores carrito y orden */}
                     <Button variant="secondary" className="button-back">
                         Volver a la tienda
                     </Button>
                 </Link>
             </div>
         )
-    }
-        
+    } 
     </>);
 }

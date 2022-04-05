@@ -12,26 +12,16 @@ export default function ItemDetailContainer() {
     const [loading, setLoading] = useState(true);
     const { itemId } = useParams();
 
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const query = doc(db, "items", itemId);
-    //         const res = await getDoc(query);
-    //         const item = res.data();
-    //         setItem(item);
-    //         setFound(true);
-    //     };
-    //     getData().finally(() => setLoading(false));
-    // }, [itemId]); 
-
     useEffect(() => {
-        getItem(itemId).then((res) => {
-            setItem(res);
+        const getData = async () => {
+            const query = doc(db, "items", itemId);
+            const res = await getDoc(query);
+            const item = res.data();
+            setItem(item);
             setFound(true);
-        }).catch((err) => {
-            console.log('Hubo un error durante la obtención de items.')
-        }).finally(() => {
-            setLoading(false);
-        })
+            console.log(item);
+        };
+        getData().finally(() => setLoading(false));
     }, [itemId]);
 
     return (<Container>

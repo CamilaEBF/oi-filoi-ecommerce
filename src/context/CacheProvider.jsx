@@ -6,15 +6,17 @@ export default function CacheProvider({defaultValue = [], children}) {
     //cart = <{item, quantity}>[];
 
     useEffect(() => {
-        console.log(cart);
+        console.log(cart, 'cart');
     }, [cart]);
 
     const value = useMemo(() => ({
         cart,
         addToCart: (product) => {
             let newCart = [...cart];    
-            const index = newCart.findIndex(element => element.item.id === product.item.id);
-            if (index === -1) {
+            const index = newCart.find(element => element.item.title === product.item.title);
+            console.log(index, 'index');
+            console.log('product', product);
+            if (index === undefined) {
                 setCart([...cart, {item: product.item, quantity: product.quantity}]);
             }
         },

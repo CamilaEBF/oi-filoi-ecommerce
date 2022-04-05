@@ -11,8 +11,9 @@ export default function ItemDetail({ item }) {
     const cartContext = useContext(CartContext);
 
     const onAdd = (count) => {
-        cartContext.addToCart({ item, quantity: count });
         setCount(count);
+        cartContext.addToCart({ item, quantity: count });
+        console.log(cartContext.cart, 'al agregar', item);
     };
 
     const routeChange = () => {

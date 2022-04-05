@@ -16,7 +16,8 @@ export default function ItemDetailContainer() {
         const getData = async () => {
             const query = doc(db, "items", itemId);
             const res = await getDoc(query);
-            const item = res.data();
+            //const items = res.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const item = { id: res.id, ...res.data() };
             setItem(item);
             setFound(true);
             console.log(item);

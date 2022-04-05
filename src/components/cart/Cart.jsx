@@ -76,6 +76,7 @@ export default function Cart() {
             console.log('docref', docRef.id);
             updateOrderElementsStock(order);
             setOrderId(docRef.id);
+            alert('Compra realizada con éxito. NUMERO DE ORDEN:' + docRef.id);
             cartContext.emptyCart();
         } catch (error) {
             console.log('error', error);

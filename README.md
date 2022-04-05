@@ -1,6 +1,6 @@
 # Oi-Filoi e-commerce application
 
-
+![App demo running gif](https://github.com/CamilaEBF/oi-filoi-ecommerce/blob/main/public/img/app-demo.gif)
 
 ## About
 

@@ -1,13 +1,14 @@
-import { Container, Row, Spinner } from "react-bootstrap";
+import { Button, Container, Row, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import { getItem } from "../../assets/Items";
 
 export default function ItemDetailContainer() {
     const [item, setItem] = useState([]);
+    const [found, setFound] = useState(false);
     const [loading, setLoading] = useState(true);
     const { itemId } = useParams();
 
@@ -15,32 +16,36 @@ export default function ItemDetailContainer() {
         const getData = async () => {
             const query = doc(db, "items", itemId);
             const res = await getDoc(query);
-            const item = res.data();
+            //const items = res.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const item = { id: res.id, ...res.data() };
             setItem(item);
+            setFound(true);
+            console.log(item);
         };
         getData().finally(() => setLoading(false));
-    }, [itemId]); 
-
-    // useEffect(() => {
-    //     getItem(itemId).then((res) => {
-    //         setItem(res);
-    //     }).catch((err) => {
-    //         console.log('Hubo un error durante la obtención de items.')
-    //     }).finally(() => {
-    //         setLoading(false);
-    //     })
-    // }, [itemId]);
+    }, [itemId]);
 
     return (<Container>
-        {loading ?
+        {loading && !found ?
             (<Spinner animation="border" role="status" className="col-12">
                 <span className="visually-hidden">Loading...</span>
             </Spinner>)
             :
             (<>
-                <Row className="justify-content-center">
-                    <ItemDetail item={item}></ItemDetail>
-                </Row>
+                {found ? (
+                    <Row className="justify-content-center">
+                        <ItemDetail item={item}></ItemDetail>
+                    </Row>
+                ) : (<div className="container p-5">
+                    <h1>404</h1>
+                    <h2>No se encontró el producto</h2>
+                    <Link to="/">
+                        <Button variant="secondary" className="button-back">
+                            Volver a la tienda
+                        </Button>
+                    </Link>
+                </div>)
+                }
             </>)
         }
     </Container>);

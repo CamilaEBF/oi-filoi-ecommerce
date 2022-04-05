@@ -11,40 +11,30 @@ export default function ItemListContainer(props) {
   const [loading, setLoading] = useState(true);
   const { categoryId } = useParams();
 
-  useEffect(() => {
+
     const getData = async () => {
-      if(categoryId) {
+      try{
+        if (categoryId) {
         const q = query(collection(db, "items"), where("category", "==", categoryId));
         const res = await getDocs(q);
-        const items = res.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        const items = res.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setItems(items);
-        } else {
-          const query = collection(db,"items");
-          const res = await getDocs(query);
-          const items = res.docs.map(doc => ({id: doc.id, ...doc.data()}));
-          setItems(items);
-        }
+      } else {
+        const query = collection(db, "items");
+        const res = await getDocs(query);
+        const items = res.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setItems(items);
+      }
+      setLoading(false);
+      } catch(e) {
+        console.log('error durante la obtencion de datos',e);
+      }
+    };
 
-        console.log(items);
-      };
-      getData().finally(() => setLoading(false));
-  }, [items, categoryId]);
-
-  // useEffect(() => {
-  //   getItems().then((res) => {
-  //     setItems(res.filter((item) => {
-  //       if (categoryId) {
-  //         return item.category === categoryId;
-  //       } else {
-  //         return item;
-  //       }
-  //     }));
-  //   }).catch((err) => {
-  //     console.log('Hubo un error durante la obtención de items.')
-  //   }).finally(() => {
-  //     setLoading(false);
-  //   })
-  // }, [categoryId]);
+    useEffect(() => {
+      getData();
+      console.log(items);
+    }, [categoryId]);
 
   return (<Container>
     <Row className="">

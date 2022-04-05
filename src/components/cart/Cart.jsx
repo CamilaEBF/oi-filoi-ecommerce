@@ -5,13 +5,13 @@ import CartContext from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import BuyerForm from "./BuyerForm";
-import {db} from "../../utils/firebase";
+import { db } from "../../utils/firebase";
 import { Timestamp, addDoc, collection, updateDoc, doc } from "firebase/firestore";
 
 
 export default function Cart() {
     const cartContext = useContext(CartContext);
-    const { orderId, orderIdSet } = useState(null);	
+    const [orderId, setOrderId] = useState(null);
 
     const cartItems = cartContext.cart.map(product => (
         <CartItem
@@ -52,7 +52,7 @@ export default function Cart() {
     </div>
     );
 
-    const onSubmitBuyerInfo = async (e)=>{
+    const onSubmitBuyerInfo = async (e) => {
         e.preventDefault();
         console.log(e);
         let order = {
@@ -70,52 +70,59 @@ export default function Cart() {
             total: cartContext.total
         };
         console.log(order);
-        const queryCollection = collection( db, "orders" );
+        const queryCollection = collection(db, "orders");
         try {
             const docRef = await addDoc(queryCollection, order);
             console.log('docref', docRef.id);
             updateOrderElementsStock(order);
-            orderIdSet(docRef.id);
-        } catch(error) {
-            console.log('error',error);
+            setOrderId(docRef.id);
+            alert('Compra realizada con éxito. NUMERO DE ORDEN:' + docRef.id);
+            cartContext.emptyCart();
+        } catch (error) {
+            console.log('error', error);
         }
-        
+
     };
 
-    const updateOrderElementsStock = (order)=>{
+    const updateOrderElementsStock = (order) => {
         order.items.forEach(item => {
-            const queryDoc = doc( db, "products", order.items[0].id );
-            updateStock(queryDoc, {stock: item.stock - item.quantity});
+            const queryDoc = doc(db, "items", order.items[0].id);
+            updateStock(queryDoc, { stock: item.stock - item.quantity });
         });
     };
 
-    const updateStock = async (queryDoc, data)=>{ 
-       await updateDoc(queryDoc, data);
+    const updateStock = async (queryDoc, data) => {
+        await updateDoc(queryDoc, data);
+    };
+
+    const resetOrder = () => {
+        setOrderId(null);
     };
 
 
     return (<>
-    {orderId !== null ? 
-        (<>
-        <div className="cart-container">
-            {cart}
-        </div>
-        <div className="cart-order">
-            <BuyerForm onSubmitOrder={onSubmitBuyerInfo} />
-        </div>
-        </>) : (
-            <div className="order-end">
-                <h2>Tu pedido ha sido realizado con éxito</h2>
-                <p>En breve recibirás un correo con los detalles de tu pedido</p>
-                <h2> Tu número de orden es: { orderId }</h2>
-                <Link to="/">
-                    <Button variant="secondary" className="button-back">
-                        Volver a la tienda
-                    </Button>
-                </Link>
-            </div>
-        )
-    }
-        
+        {orderId !== 'null' ?
+            (<>
+                <div className="cart-container">
+                    {cart}
+                </div>
+                {cartContext.cart.length &&
+                    (<div className="cart-order">
+                        <BuyerForm onSubmitOrder={onSubmitBuyerInfo} />
+                    </div>)
+                }
+            </>) : (
+                <div className="container p-5">
+                    <h2>Tu pedido ha sido realizado con éxito</h2>
+                    <p>En breve recibirás un correo con los detalles de tu pedido</p>
+                    <h2> Tu número de orden es: {orderId}</h2>
+                    <Link to="/">
+                        <Button variant="secondary" className="button-back" onClick={() => resetOrder()}>
+                            Volver a la tienda
+                        </Button>
+                    </Link>
+                </div>
+            )
+        }
     </>);
 }
